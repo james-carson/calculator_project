@@ -83,8 +83,11 @@ body{
     -webkit-text-stroke-color: var(--calcBlue); */
 }
 
-.equals_button{
+#equals_button{
     width: 230px;
     border-radius: 25px;
 }
 
+#power_button{
+    font-size: 50px;
+}
