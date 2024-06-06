@@ -4,7 +4,15 @@ let firstNumber = '',
     secondNumber = '',
     operator = '';
 
-// --Click handler to update variables on number clicks:
+// --Allowing the screen to be updated:
+const lowerScreen = document.getElementById("screen_bottom");
+function updateScreen() {
+    lowerScreen.textContent = firstNumber + operator + secondNumber;
+}
+
+// --Click handlers to update variables:
+
+// Click handler to update variables on number clicks:
 function handleNumberClick(number) {
     if (!operator && !secondNumber) {
         if (firstNumber === '0') {
@@ -21,10 +29,17 @@ function handleNumberClick(number) {
     } else {
         // Update screen to read "ERROR" later!
     }
+    updateScreen()
 }
 
-function handleOperatorClick(operator) {
-
+// Click handler to update operator variable on operator clicks:
+function handleOperatorClick(operatorEntry) {
+    if (firstNumber && !firstNumber == '0' && !operator) {
+        operator = operatorEntry
+    } else {
+        // Update screen to read "ERROR" later! 
+    }
+    updateScreen()
 }
 
 // --Event listeners to listen for a button click:
@@ -66,22 +81,17 @@ nineButton.addEventListener("click", () =>
 // Operators:
 
 const addButton = document.getElementById("add_Button");
-addButton.addEventListener("click", function () {
-    // Add function here!
-});
+addButton.addEventListener("click", () =>
+    handleOperatorClick('+'));
 const subtractButton = document.getElementById("subtract_Button");
-subtractButton.addEventListener("click", function () {
-    // Add function here!
-});
+subtractButton.addEventListener("click", () =>
+    handleOperatorClick('-'));
 const multiplyButton = document.getElementById("multiply_Button");
-multiplyButton.addEventListener("click", function () {
-    // Add function here!
-});
+multiplyButton.addEventListener("click", () =>
+    handleOperatorClick('*'));
 const divideButton = document.getElementById("divide_Button");
-divideButton.addEventListener("click", function () {
-    // Add function here!
-});
-
+divideButton.addEventListener("click", () =>
+    handleOperatorClick('/'));
 
 // Other buttons:
 
