@@ -1,0 +1,90 @@
+:root{
+    --calcBase: #33535E;
+    --calcLighter: #45707F;
+    --calcBlue: #333D5E;
+    --calcGreen: #335E54;
+    --calcPurple: #5E335E;
+    --calcBrown:#5E3E33;
+}
+
+body{
+    margin: 0; border: 0; padding: 0;
+    height: 100vh;
+    background-color: var(--calcGreen);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.outline{
+    border: solid 1px black;
+    height: 800px;
+    width: 500px;
+    background-color: var(--calcBase);
+    border-radius: 25px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.screen{
+    background-color: var(--calcBlue);
+    height: 200px;
+    width: 480px;
+    border-radius: 25px;
+    outline: solid 1px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 10px;
+    color: white;
+}
+
+.screen_top, .screen_bottom{
+    text-align: end;
+    margin-right: 10px;
+}
+
+.screen_top{
+    height: 60px;
+    font-size: 15px;
+    }
+    
+    .screen_bottom{
+    height: 100px;
+    font-size: 30px;
+    }
+
+.button_row{
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    width: 480px;
+    /* Temporary for spacing:
+    outline: solid 1px black; */
+}
+
+.pushbuttons{
+    background-color: var(--calcLighter);
+    height: 100px;
+    width: 100px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    color: white;
+    /* -webkit-text-stroke: 1px;
+    -webkit-text-stroke-color: var(--calcBlue); */
+}
+
+.equals_button{
+    width: 230px;
+    border-radius: 25px;
+}
+
