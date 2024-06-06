@@ -45,19 +45,19 @@ body{
     color: white;
 }
 
-.screen_top, .screen_bottom{
+#screen_top, #screen_bottom{
     text-align: end;
     margin-right: 10px;
 }
 
-.screen_top{
+#screen_top{
     height: 60px;
-    font-size: 15px;
+    font-size: 20px;
     }
     
-    .screen_bottom{
+#screen_bottom{
     height: 100px;
-    font-size: 30px;
+    font-size: 60px;
     }
 
 .button_row{
