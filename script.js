@@ -11,23 +11,21 @@ let firstNumber = '',
 // ---Operator functions:
 
 const add = function (firstNumber, secondNumber) {
-    return (parseInt(firstNumber)) + (parseInt(secondNumber));
+    return (parseFloat(firstNumber)) + (parseFloat(secondNumber));
 };
 const subtract = function (firstNumber, secondNumber) {
-    return (parseInt(firstNumber)) - (parseInt(secondNumber));
+    return (parseFloat(firstNumber)) - (parseFloat(secondNumber));
 };
 const multiply = function (firstNumber, secondNumber) {
-    return (parseInt(firstNumber)) * (parseInt(secondNumber));
+    return (parseFloat(firstNumber)) * (parseFloat(secondNumber));
 };
 const divide = function (firstNumber, secondNumber) {
     if (secondNumber !== '0') {
-        return (parseInt(firstNumber)) / (parseInt(secondNumber));
+        return (parseFloat(firstNumber)) / (parseFloat(secondNumber));
     } else {
         return null;
     }
 };
-
-// STILL CANNOT WORK OUT WHY THE ERROR ISN'T SHOWING SECOND TIME!!!!
 
 const operate = function (firstNumber, operator, secondNumber) {
     if (operator === '+') {
@@ -100,18 +98,27 @@ function updateScreen() {
 }
 
 function updateLowerScreen() {
-    lowerScreen.textContent = firstNumber + operator + secondNumber;
+    if (!memory) {
+        lowerScreen.textContent = firstNumber + operator + secondNumber;
+    } else if (memory) {
+        lowerScreen.textContent = memory + operator + secondNumber;
+    }
 }
 
+// EQUALS BUTTON
 function updateScreenAnswer() {
     firstNumberTop = firstNumber;
     operatorTop = operator;
     secondNumberTop = secondNumber;
     upperScreen.textContent = firstNumberTop + operatorTop + secondNumberTop;
     const result = operate(firstNumber, operator, secondNumber);
+    memory = result
     if (result !== null) {
-        lowerScreen.textContent = memory;
+        lowerScreen.textContent = parseFloat(parseFloat(memory).toFixed(10));
     }
+    firstNumber = '';
+    operator = '';
+    secondNumber = '';
 }
 
 function displayError() {
@@ -149,75 +156,102 @@ function handleNumberClick(number) {
 
 // Click handler to update operator variable on operator clicks:
 function handleOperatorClick(operatorEntry) {
-    if (memory) {
-        firstNumber = memory
+    if (!operator) {
+        if (memory) {
+            firstNumber = memory
+            operator = operatorEntry;
+            secondNumber = '';
+            updateLowerScreen()
+        } else if (!memory) {
+            operator = operatorEntry;
+            updateScreen()
+        } else {
+            displayError();
+        }
+    } else if (operator){
         operator = operatorEntry;
-        secondNumber = '';
-        updateLowerScreen()
-    } else if (!memory) {
-        operator = operatorEntry;
-        updateScreen()
-    } else {
-        displayError();
+        updateLowerScreen();
     }
 }
 
-// --Event listeners to listen for a button click:
+    // Click handler to handle decimal point button click:
+    function handleDecimalPoint() {
+        if (!operator) {
+            if (!firstNumber && memory) {
+                if (!memory.includes(".")) {
+                    memory += '.';
+                }
+            } else if (firstNumber && !firstNumber.includes(".")) {
+                firstNumber += '.';
+            } else if (!firstNumber) {
+                firstNumber = '0.';
+            }
+        } else {
+            if (secondNumber && !secondNumber.includes(".")) {
+                secondNumber += '.';
+            } else if (!secondNumber) {
+                secondNumber = '0.';
+            }
+        }
+        updateLowerScreen();
+    }
 
-// Numbers:
+    // --Event listeners to listen for a button click:
 
-const zeroButton = document.getElementById("zero_button");
-zeroButton.addEventListener("click", () => handleNumberClick('0'));
-const oneButton = document.getElementById("one_button");
-oneButton.addEventListener("click", () => handleNumberClick('1'));
-const twoButton = document.getElementById("two_button");
-twoButton.addEventListener("click", () => handleNumberClick('2'));
-const threeButton = document.getElementById("three_button");
-threeButton.addEventListener("click", () => handleNumberClick('3'));
-const fourButton = document.getElementById("four_button");
-fourButton.addEventListener("click", () => handleNumberClick('4'));
-const fiveButton = document.getElementById("five_button");
-fiveButton.addEventListener("click", () => handleNumberClick('5'));
-const sixButton = document.getElementById("six_button");
-sixButton.addEventListener("click", () => handleNumberClick('6'));
-const sevenButton = document.getElementById("seven_button");
-sevenButton.addEventListener("click", () => handleNumberClick('7'));
-const eightButton = document.getElementById("eight_button");
-eightButton.addEventListener("click", () => handleNumberClick('8'));
-const nineButton = document.getElementById("nine_button");
-nineButton.addEventListener("click", () => handleNumberClick('9'));
+    // Numbers:
+
+    const zeroButton = document.getElementById("zero_button");
+    zeroButton.addEventListener("click", () => handleNumberClick('0'));
+    const oneButton = document.getElementById("one_button");
+    oneButton.addEventListener("click", () => handleNumberClick('1'));
+    const twoButton = document.getElementById("two_button");
+    twoButton.addEventListener("click", () => handleNumberClick('2'));
+    const threeButton = document.getElementById("three_button");
+    threeButton.addEventListener("click", () => handleNumberClick('3'));
+    const fourButton = document.getElementById("four_button");
+    fourButton.addEventListener("click", () => handleNumberClick('4'));
+    const fiveButton = document.getElementById("five_button");
+    fiveButton.addEventListener("click", () => handleNumberClick('5'));
+    const sixButton = document.getElementById("six_button");
+    sixButton.addEventListener("click", () => handleNumberClick('6'));
+    const sevenButton = document.getElementById("seven_button");
+    sevenButton.addEventListener("click", () => handleNumberClick('7'));
+    const eightButton = document.getElementById("eight_button");
+    eightButton.addEventListener("click", () => handleNumberClick('8'));
+    const nineButton = document.getElementById("nine_button");
+    nineButton.addEventListener("click", () => handleNumberClick('9'));
 
 
-// Operators:
+    // Operators:
 
-const addButton = document.getElementById("add_button");
-addButton.addEventListener("click", () => handleOperatorClick('+'));
-const subtractButton = document.getElementById("subtract_button");
-subtractButton.addEventListener("click", () => handleOperatorClick('-'));
-const multiplyButton = document.getElementById("multiply_button");
-multiplyButton.addEventListener("click", () => handleOperatorClick('*'));
-const divideButton = document.getElementById("divide_button");
-divideButton.addEventListener("click", () => handleOperatorClick('/'));
+    const addButton = document.getElementById("add_button");
+    addButton.addEventListener("click", () => handleOperatorClick('+'));
+    const subtractButton = document.getElementById("subtract_button");
+    subtractButton.addEventListener("click", () => handleOperatorClick('-'));
+    const multiplyButton = document.getElementById("multiply_button");
+    multiplyButton.addEventListener("click", () => handleOperatorClick('*'));
+    const divideButton = document.getElementById("divide_button");
+    divideButton.addEventListener("click", () => handleOperatorClick('/'));
 
-// Other buttons:
+    // Other buttons:
 
-const powerButton = document.getElementById("power_button");
-powerButton.addEventListener("click", function () {
-    // Add function here!
-});
-const acButton = document.getElementById("ac_button");
-acButton.addEventListener("click", function () {
-    clearAll();
-});
-const cButton = document.getElementById("c_button");
-cButton.addEventListener("click", function () {
-    clearLast()
-});
-const pointButton = document.getElementById("point_button");
-pointButton.addEventListener("click", function () {
-    // Add function here!
-});
-const equalsButton = document.getElementById("equals_button");
-equalsButton.addEventListener("click", function () {
-    updateScreenAnswer();
-});
+    const powerButton = document.getElementById("power_button");
+    powerButton.addEventListener("click", function () {
+        // Add function here!
+    });
+    const acButton = document.getElementById("ac_button");
+    acButton.addEventListener("click", function () {
+        clearAll();
+    });
+    const cButton = document.getElementById("c_button");
+    cButton.addEventListener("click", function () {
+        clearLast()
+    });
+    const pointButton = document.getElementById("point_button");
+    pointButton.addEventListener("click", function () {
+        handleDecimalPoint();
+    });
+    const equalsButton = document.getElementById("equals_button");
+    equalsButton.addEventListener("click", function () {
+        updateScreenAnswer();
+    });
