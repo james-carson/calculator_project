@@ -6,9 +6,16 @@ let firstNumber = '',
 
 // --Allowing the screen to be updated:
 const lowerScreen = document.getElementById("screen_bottom");
+const upperScreen = document.getElementById("screen_top");
+
 function updateScreen() {
     lowerScreen.textContent = firstNumber + operator + secondNumber;
 }
+function updateScreenAnswer() {
+    upperScreen.textContent = firstNumber + operator + secondNumber;
+    lowerScreen.textContent = operate(firstNumber, operator, secondNumber);
+}
+// ***** Need to stop it from flowing over the edge of the screen! ****
 
 // --Click handlers to update variables:
 
@@ -99,40 +106,41 @@ pointButton.addEventListener("click", function () {
 });
 const equalsButton = document.getElementById("equals_button");
 equalsButton.addEventListener("click", function () {
-    // Add function here!
+    updateScreenAnswer()
 });
 
 
 // Operator functions:
 
-const add = function (a, b) {
-    return (a + b)
+const add = function (firstNumber, secondNumber) {
+    return (parseInt(firstNumber)) + (parseInt(secondNumber))
 };
 
-const subtract = function (a, b) {
-    return (a - b)
+const subtract = function (firstNumber, secondNumber) {
+    return (parseInt(firstNumber)) - (parseInt(secondNumber))
 };
 
-const multiply = function (a, b) {
-    return (a * b)
+const multiply = function (firstNumber, secondNumber) {
+    return (parseInt(firstNumber)) * (parseInt(secondNumber))
 };
 
-const divide = function (a, b) {
-    return (a / b)
+const divide = function (firstNumber, secondNumber) {
+    return (parseInt(firstNumber)) / (parseInt(secondNumber))
 };
 
-const operate = function (a, b, operator) {
-    if (operator === addButton) {
-        return add(a, b);
-    } else if (operator === subtractButton) {
-        return subtract(a, b);
-    } else if (operator === multiplyButton) {
-        return multiply(a, b);
-    } else if (operator === divideButton) {
-        return divide(a, b);
+const operate = function (firstNumber, operator, secondNumber) {
+    if (operator === '+') {
+        return add(firstNumber, secondNumber);
+    } else if (operator === '-') {
+        return subtract(firstNumber, secondNumber);
+    } else if (operator === '*') {
+        return multiply(firstNumber, secondNumber);
+    } else if (operator === '/') {
+        return divide(firstNumber, secondNumber);
     } else {
         // Display an error on the screen!
     }
+    
 };
 
 const clearLast = function () {

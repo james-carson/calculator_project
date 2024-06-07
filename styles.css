@@ -41,22 +41,26 @@ body{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 20px;
     color: white;
 }
 
 #screen_top, #screen_bottom{
+    justify-content: center;
     text-align: end;
     margin-right: 10px;
+    /* Temporary for spacing: */
+    /* outline: solid 1px black; */
 }
 
 #screen_top{
     height: 60px;
     font-size: 20px;
+    align-content: end;
     }
     
 #screen_bottom{
-    height: 100px;
+    height: 120px;
     font-size: 60px;
     }
 
