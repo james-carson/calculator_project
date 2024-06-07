@@ -1,77 +1,165 @@
-// --Variables for later use:
+// ---Variables defined
 
 let firstNumber = '',
     secondNumber = '',
     operator = '',
     firstNumberTop = '',
     operatorTop = '',
+    secondNumberTop = '',
+    memory = '';
+
+// ---Operator functions:
+
+const add = function (firstNumber, secondNumber) {
+    return (parseInt(firstNumber)) + (parseInt(secondNumber));
+};
+const subtract = function (firstNumber, secondNumber) {
+    return (parseInt(firstNumber)) - (parseInt(secondNumber));
+};
+const multiply = function (firstNumber, secondNumber) {
+    return (parseInt(firstNumber)) * (parseInt(secondNumber));
+};
+const divide = function (firstNumber, secondNumber) {
+    if (secondNumber !== '0') {
+        return (parseInt(firstNumber)) / (parseInt(secondNumber));
+    } else {
+        return null;
+    }
+};
+
+// STILL CANNOT WORK OUT WHY THE ERROR ISN'T SHOWING SECOND TIME!!!!
+
+const operate = function (firstNumber, operator, secondNumber) {
+    if (operator === '+') {
+        return add(firstNumber, secondNumber);
+    } else if (operator === '-') {
+        return subtract(firstNumber, secondNumber);
+    } else if (operator === '*') {
+        return multiply(firstNumber, secondNumber);
+    } else if (operator === '/') {
+        const result = divide(firstNumber, secondNumber);
+        if (result === null) {
+            displayError();
+            alert("You can't divide by 0! Click 'AC'")
+        }
+        return result;
+    } else {
+        displayError();
+        return null;
+    }
+};
+
+const clearLast = function () {
+    if (firstNumber && operator && secondNumber) {
+        secondNumber = secondNumber.slice(0, -1);
+    } else if (firstNumber && operator && !secondNumber) {
+        operator = '';
+    } else if (firstNumber && !operator && !secondNumber) {
+        firstNumber = firstNumber.slice(0, -1);
+    }
+    updateLowerScreen();
+};
+
+const clearAll = function () {
+    firstNumber = '';
+    operator = '';
+    secondNumber = '';
+    firstNumberTop = '';
+    operatorTop = '';
     secondNumberTop = '';
     memory = '';
+    updateScreen();
+};
+
+const deleteAll = function () {
+    firstNumber = '';
+    operator = '';
+    secondNumber = '';
+    firstNumberTop = '';
+    operatorTop = '';
+    secondNumberTop = '';
+    memory = '';
+}
+
+const togglePower = function () {
+
+}
 
 // --Allowing the screen to be updated:
 const lowerScreen = document.getElementById("screen_bottom");
 const upperScreen = document.getElementById("screen_top");
 
 function updateScreen() {
-    upperScreen.textContent = '';
-    lowerScreen.textContent = firstNumber + operator + secondNumber;
+    if (!memory) {
+        upperScreen.textContent = '';
+        lowerScreen.textContent = firstNumber + operator + secondNumber;
+    } else if (memory) {
+        upperScreen.textContent = firstNumberTop + operatorTop + secondNumberTop;
+        lowerScreen.textContent = memory + firstNumber + secondNumber;
+    }
 }
+
 function updateLowerScreen() {
     lowerScreen.textContent = firstNumber + operator + secondNumber;
 }
+
 function updateScreenAnswer() {
     firstNumberTop = firstNumber;
     operatorTop = operator;
     secondNumberTop = secondNumber;
     upperScreen.textContent = firstNumberTop + operatorTop + secondNumberTop;
-    operate(firstNumber, operator, secondNumber);
-    lowerScreen.textContent = memory;
+    const result = operate(firstNumber, operator, secondNumber);
+    if (result !== null) {
+        lowerScreen.textContent = memory;
+    }
 }
+
 function displayError() {
-    firstNumber = '';
-        secondNumber = '';
-        operator = '';
-        firstNumberTop = '';
-        operatorTop = '';
-        secondNumberTop = '';
+    console.log("Displaying error...");
+    deleteAll();
     upperScreen.textContent = '';
     lowerScreen.textContent = 'ERROR!';
 }
-
-
-
-// ***** Need to stop it from flowing over the edge of the screen! ****
 
 // --Click handlers to update variables:
 
 // Click handler to update variables on number clicks:
 function handleNumberClick(number) {
-    if (!operator && !secondNumber) {
-        if (firstNumber === '0') {
-            firstNumber = number;
-        } else {
-            firstNumber += number;
-        }
-    } else if (firstNumber && operator) {
-        if (secondNumber === '0') {
-            secondNumber = number;
-        } else {
-            secondNumber += number;
+    if (memory && operator) {
+        secondNumber += number;
+    } else if (!memory) {
+        if (!operator && !secondNumber) {
+            if (firstNumber === '0') {
+                firstNumber = number;
+            } else {
+                firstNumber += number;
+            }
+        } else if (firstNumber && operator) {
+            if (secondNumber === '0') {
+                secondNumber = number;
+            } else {
+                secondNumber += number;
+            }
         }
     } else {
         displayError();
     }
-    updateScreen()
+    updateLowerScreen();
 }
 
 // Click handler to update operator variable on operator clicks:
 function handleOperatorClick(operatorEntry) {
-    if (firstNumber && firstNumber !== '0' && !operator) {
-        operator = operatorEntry
+    if (memory) {
+        firstNumber = memory
+        operator = operatorEntry;
+        secondNumber = '';
+        updateLowerScreen()
+    } else if (!memory) {
+        operator = operatorEntry;
+        updateScreen()
     } else {
         displayError();
     }
-    updateScreen()
 }
 
 // --Event listeners to listen for a button click:
@@ -133,61 +221,3 @@ const equalsButton = document.getElementById("equals_button");
 equalsButton.addEventListener("click", function () {
     updateScreenAnswer();
 });
-
-
-// Operator functions:
-
-const add = function (firstNumber, secondNumber) {
-    return (parseInt(firstNumber)) + (parseInt(secondNumber));
-};
-const subtract = function (firstNumber, secondNumber) {
-    return (parseInt(firstNumber)) - (parseInt(secondNumber));
-};
-const multiply = function (firstNumber, secondNumber) {
-    return (parseInt(firstNumber)) * (parseInt(secondNumber));
-};
-const divide = function (firstNumber, secondNumber) {
-    return (parseInt(firstNumber)) / (parseInt(secondNumber));
-};
-
-const operate = function (firstNumber, operator, secondNumber) {
-    if (operator === '+') {
-        result =  add(firstNumber, secondNumber);
-    } else if (operator === '-') {
-        result =  subtract(firstNumber, secondNumber);
-    } else if (operator === '*') {
-        result =  multiply(firstNumber, secondNumber);
-    } else if (operator === '/') {
-        result =  divide(firstNumber, secondNumber);
-    } else {
-        displayError();
-        return;
-    }
-    memory = result;
-    return result;
-};
-
-const clearLast = function () {
-    if (firstNumber && operator && secondNumber) {
-        secondNumber = secondNumber.slice(0, -1);
-    } else if (firstNumber && operator && !secondNumber) {
-        operator = '';
-    } else if (firstNumber && !operator && !secondNumber) {
-        firstNumber = firstNumber.slice(0, -1);
-    }
-    updateLowerScreen();
-};
-
-const clearAll = function () {
-    firstNumber = '';
-    operator = '';
-    secondNumber = '';
-    firstNumberTop = '',
-        operatorTop = '',
-        secondNumberTop = '';
-    updateScreen();
-};
-
-const togglePower = function () {
-
-}
