@@ -20,28 +20,28 @@ body{
 
 .outline{
     border: solid 1px black;
-    height: 800px;
-    width: 500px;
+    height: 600px;
+    width: 375px;
     background-color: var(--calcBase);
     border-radius: 25px;
-    padding: 20px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .screen{
     background-color: var(--calcBlue);
-    height: 200px;
-    width: 480px;
+    height: 150px;
+    width: 360px;
     border-radius: 25px;
     outline: solid 1px black;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    gap: 20px;
+    gap: 15px;
     color: white;
     transition: background-color 1s ease, color 1s ease;
 
@@ -50,20 +50,20 @@ body{
 #screen_top, #screen_bottom{
     justify-content: center;
     text-align: end;
-    margin-right: 10px;
+    margin-right: 7.5px;
     /* Temporary for spacing: */
     /* outline: solid 1px black; */
 }
 
 #screen_top{
-    height: 60px;
-    font-size: 20px;
+    height: 45px;
+    font-size: 15px;
     align-content: end;
     }
     
 #screen_bottom{
-    height: 120px;
-    font-size: 60px;
+    height: 90px;
+    font-size: 45px;
     }
 
 .screen_off{
@@ -74,31 +74,31 @@ body{
 .button_row{
     display: flex;
     justify-content: space-between;
-    height: 100px;
-    width: 480px;
+    height: 75px;
+    width: 360px;
     /* Temporary for spacing:
     outline: solid 1px black; */
 }
 
 .pushbuttons{
     background-color: var(--calcLighter);
-    height: 100px;
-    width: 100px;
+    height: 75px;
+    width: 75px;
     border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 35px;
+    font-size: 26px;
     color: white;
     /* -webkit-text-stroke: 1px;
     -webkit-text-stroke-color: var(--calcBlue); */
 }
 
 #equals_button{
-    width: 230px;
+    width: 172.5px;
     border-radius: 25px;
 }
 
 #power_button{
-    font-size: 50px;
+    font-size: 37.5px;
 }
