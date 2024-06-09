@@ -43,6 +43,8 @@ body{
     justify-content: flex-end;
     gap: 20px;
     color: white;
+    transition: background-color 1s ease, color 1s ease;
+
 }
 
 #screen_top, #screen_bottom{
@@ -63,6 +65,11 @@ body{
     height: 120px;
     font-size: 60px;
     }
+
+.screen_off{
+    background-color: var(--calcLighter);
+    color: var(--calcLighter);
+}
 
 .button_row{
     display: flex;

@@ -88,12 +88,18 @@ const lengthCheck = function () {
 }
 
 const togglePower = function () {
-
+    clearAll();
+    screen.classList.toggle("screen_off");
 }
 
 // --Allowing the screen to be updated:
 const lowerScreen = document.getElementById("screen_bottom");
 const upperScreen = document.getElementById("screen_top");
+const screen = document.getElementById("screen");
+
+// Adding a class for the screen to be turned on and off:
+screen.classList.add('screen_off');
+
 
 function updateScreen() {
     if (!memory) {
@@ -122,7 +128,7 @@ function updateScreenAnswer() {
     const result = operate(firstNumber, operator, secondNumber);
     memory = result
     if (result !== null) {
-        lowerScreen.textContent = parseFloat(parseFloat(memory).toFixed(10));
+        lowerScreen.textContent = parseFloat(parseFloat(memory).toPrecision(10));
     }
     firstNumber = '';
     operator = '';
@@ -251,7 +257,7 @@ divideButton.addEventListener("click", () => handleOperatorClick('/'));
 
 const powerButton = document.getElementById("power_button");
 powerButton.addEventListener("click", function () {
-    // Add function here!
+    togglePower();
 });
 const acButton = document.getElementById("ac_button");
 acButton.addEventListener("click", function () {
@@ -269,3 +275,29 @@ const equalsButton = document.getElementById("equals_button");
 equalsButton.addEventListener("click", function () {
     updateScreenAnswer();
 });
+
+// Here are the event listeners for keyboard input:
+
+Numbers:
+document.addEventListener('keydown', function (event) {
+    if (event.key >= '0' && event.key <= '9') {
+        handleNumberClick(event.key);
+    } else if (event.key === '+') {
+        handleOperatorClick('+');
+    } else if (event.key === '-') {
+        handleOperatorClick('-');
+    } else if (event.key === '*') {
+        handleOperatorClick('*');
+    } else if (event.key === '/') {
+        handleOperatorClick('/');
+    } else if (event.key === '.') {
+        handleDecimalPoint();
+    } else if (event.key === 'Enter') {
+        updateScreenAnswer();
+    } else if (event.key === 'Escape') {
+        clearAll();
+    } else if (event.key === 'Backspace') {
+        clearLast();
+    }
+});
+
