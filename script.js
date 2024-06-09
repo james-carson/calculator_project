@@ -120,7 +120,7 @@ function updateLowerScreen() {
     } else if (memory) {
         displayText = memory + operator + secondNumber;
     }
-    
+
     if (displayText.length > 10) {
         displayText = displayText.slice(0, 10) + '...';
     }
@@ -189,7 +189,7 @@ function handleOperatorClick(operatorEntry) {
     if (lengthCheck()) {
         if (!operator) {
             if (memory) {
-                firstNumber = memory
+                firstNumber = parseFloat(memory.toFixed(10)).toString();
                 operator = operatorEntry;
                 secondNumber = '';
                 updateLowerScreen()
