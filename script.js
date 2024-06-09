@@ -83,6 +83,7 @@ const lengthCheck = function () {
     if (lowerScreen.textContent.length < 12) {
         return true
     } else {
+        alert("Character limit reached!")
         return false
     }
 }
@@ -112,12 +113,21 @@ function updateScreen() {
 }
 
 function updateLowerScreen() {
+    let displayText = '';
+    
     if (!memory) {
-        lowerScreen.textContent = firstNumber + operator + secondNumber;
+        displayText = firstNumber + operator + secondNumber;
     } else if (memory) {
-        lowerScreen.textContent = memory + operator + secondNumber;
+        displayText = memory + operator + secondNumber;
     }
+    
+    if (displayText.length > 10) {
+        displayText = displayText.slice(0, 10) + '...';
+    }
+
+    lowerScreen.textContent = displayText;
 }
+
 
 // EQUALS BUTTON
 function updateScreenAnswer() {
@@ -128,7 +138,11 @@ function updateScreenAnswer() {
     const result = operate(firstNumber, operator, secondNumber);
     memory = result
     if (result !== null) {
-        lowerScreen.textContent = parseFloat(parseFloat(memory).toPrecision(10));
+        let displayResult = parseFloat(result.toFixed(10));
+        if (displayResult.length > 10) {
+            displayResult = displayResult.slice(0, 10) + '...';
+        }
+        lowerScreen.textContent = displayResult;
     }
     firstNumber = '';
     operator = '';
